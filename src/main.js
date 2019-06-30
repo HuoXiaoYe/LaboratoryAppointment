@@ -69,12 +69,51 @@ var store = new Vuex.Store({
 				timeDif1: { state: 2 },
 				timeDif2: { state: 1 }
 			},
-		}
+		},
+		checkedArr: [] // 记录已经被选中时间的信息
 	},
 	mutations: {
-		show(state) {
-			console.log(state.msg2 + '----------=-=-=')
+		// 修改元素状态的函数，既元素选中之后的状态值
+		changeState(state, obj) {
+			state.data[obj.WeekDay][obj.interval].state = state.data[obj.WeekDay][obj.interval].state == 1 ? 5 : 1;
+			let time = obj.interval == 'timeDif1' ? "08:10-11:10" : "14:00-17:00";
+			var str = `week${obj.week}/${obj.WeekDay}/${time}`
+			// 当状态值为 5 的时候，说明被选中了，将被选中的信息记录
+			// 若状态值不为5， 则说明应将其从数组中 删去
+			if (state.data[obj.WeekDay][obj.interval].state == 5) {
+				state.checkedArr.push(str);
+			} else {
+				let index = state.checkedArr.indexOf(str);
+				state.checkedArr.splice(index, 1)
+			}
+			console.log(state.checkedArr)
+		},
+
+		// 当点击时间戳上的小圆点是删除checkedArr中对应的元素
+		delElOfCheckedArr(state, str) {
+			let index = state.checkedArr.indexOf(str);
+			state.checkedArr.splice(index, 1)
+			// 将其状态值改为 1
+			var reg = new RegExp(/(\/\w{3,5}\/)/);
+			// 第几周
+			var week = str.substr(4,1);
+			// 周几
+			var matchStr = str.match(reg)[0];
+			var weekday = matchStr.substr(1,matchStr.length-2)
+			// 时间段
+			var interval = str.indexOf("08:10-11:10") == -1 ? "timeDif2" : "timeDif1";
+			// console.log(interval)
+			state.data[weekday][interval].state = 1;
+
+
 		}
+	},
+	getters: {
+		// checkdArr(state){
+		// 	state.data.map((item,index)=>{
+
+		// 	})
+		// }
 	}
 })
 

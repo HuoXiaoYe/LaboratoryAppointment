@@ -20,23 +20,23 @@
         </ul>
       </div>
       <div class="week-main">
-		  <!-- 定义左侧时间段 -->
-      <ul class="timeInterval">
-        <li class="interval-item">08:10-11:10</li>
-        <li class="interval-item">14:00-17:00</li>
-      </ul>
+        <!-- 定义左侧时间段 -->
+        <ul class="timeInterval">
+          <li class="interval-item">08:10-11:10</li>
+          <li class="interval-item">14:00-17:00</li>
+        </ul>
 
-	  <!-- 所有的时间选择组件 -->
-      <div class="choice-container">
-        <week-ul :data="$store.state.data.Mon"></week-ul>
-        <week-ul :data="$store.state.data.Tues"></week-ul>
-        <week-ul :data="$store.state.data.Wed"></week-ul>
-        <week-ul :data="$store.state.data.Thurs"></week-ul>
-        <week-ul :data="$store.state.data.Fri"></week-ul>
-        <week-ul :data="$store.state.data.Sat"></week-ul>
-        <week-ul :data="$store.state.data.Sun"></week-ul>
+        <!-- 所有的时间选择组件 -->
+        <div class="choice-container">
+          <week-ul :data="$store.state.data.Mon" WeekDay="Mon" :week="weekActive"></week-ul>
+          <week-ul :data="$store.state.data.Tues" WeekDay="Tues" :week="weekActive"></week-ul>
+          <week-ul :data="$store.state.data.Wed" WeekDay="Wed" :week="weekActive"></week-ul>
+          <week-ul :data="$store.state.data.Thurs" WeekDay="Thurs" :week="weekActive"></week-ul>
+          <week-ul :data="$store.state.data.Fri" WeekDay="Fri" :week="weekActive"></week-ul>
+          <week-ul :data="$store.state.data.Sat" WeekDay="Sat" :week="weekActive"></week-ul>
+          <week-ul :data="$store.state.data.Sun" WeekDay="Sun" :week="weekActive"></week-ul>
+        </div>
       </div>
-	  </div>
     </div>
   </div>
 </template>
@@ -65,110 +65,18 @@ export default {
     ...mapMutations(["show"]),
     changeActiveWeek(week) {
       this.weekActive = week;
-    },
-    ChangeCurrentCheck(obj, flag) {
-      this.currentChecked[obj.checked] = !this.currentChecked[obj.checked];
-      if (!flag) {
-        let week = this.getWeek();
-        let day = this.getDay(obj.checked[1]);
-        let mornOrafter = this.getMornOrafter(obj.checked[2]);
-
-        var str = `第${week}周/星期${day}/${mornOrafter}`;
-
-        var obj = {
-          id: obj.checked,
-          content: str
-        };
-        this.$emit("func", obj);
-      }
-    },
-    getWeek() {
-      switch (this.weekActive) {
-        case 8:
-          return "八";
-        case 9:
-          return "九";
-        case 10:
-          return "十";
-        case 11:
-          return "十一";
-        case 12:
-          return "十二";
-        case 13:
-          return "十三";
-        case 14:
-          return "十四";
-        case 15:
-          return "十五";
-        case 16:
-          return "十六";
-      }
-    },
-    getDay(num) {
-      switch (num) {
-        case "1":
-          return "一";
-        case "2":
-          return "二";
-        case "3":
-          return "三";
-        case "4":
-          return "四";
-        case "5":
-          return "五";
-      }
-    },
-    getMornOrafter(id) {
-      switch (id) {
-        case "1":
-          return "09:00-11:00";
-        case "2":
-          return "14:00-17:00";
-      }
-    },
-    getInfoAboutChoice() {
-      var newObj = {};
-      for (let i in this.msg) {
-        if (!newObj[i]) {
-          newObj[i] = {};
-        }
-        for (let j in this.msg[i]) {
-          let color = "";
-          switch (this.msg[i][j]) {
-            case "0":
-              color = "gray";
-              break;
-            case "1":
-              color = "red";
-              break;
-            case "2":
-              color = "yellow";
-              break;
-            case "3":
-              color = "blue";
-              break;
-          }
-
-          newObj[i][j] = {
-            class: color,
-            checked: false
-          };
-        }
-      }
-      this.aaa = newObj;
-      console.log(this.aaa);
     }
   },
   created() {
-    this.$axios
-      .get("http://10.128.10.189:8000/book/applyTime/json/list")
-      .then(data => {
-        this.msg = data.data;
-        this.getInfoAboutChoice();
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    // this.$axios
+    //   .get("http://10.128.10.189:8000/book/applyTime/json/list")
+    //   .then(data => {
+    //     this.msg = data.data;
+    //     this.getInfoAboutChoice();
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //   });
     this.show();
   },
   components: {
@@ -229,12 +137,9 @@ export default {
   box-sizing: border-box;
 }
 
-.week-container .week-view .week-main{
-	display: flex;
+.week-container .week-view .week-main {
+  display: flex;
 }
-/* .week-container .week-view .timeInterval{
-
-	} */
 
 .week-container .week-view .timeInterval .interval-item {
   width: 1.6rem;
@@ -247,7 +152,7 @@ export default {
   border-left: 1px solid #ccc;
   box-sizing: border-box;
 }
-.week-container .week-view .choice-container{
-	display: flex;
+.week-container .week-view .choice-container {
+  display: flex;
 }
 </style>

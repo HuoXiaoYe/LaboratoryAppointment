@@ -22,7 +22,7 @@
 								<el-input v-model="userInfo.name" placeholder="请输入姓名"></el-input>
 							</el-form-item>
 							<el-form-item label="申请人电话">
-								<el-input v-model="userInfo.tel" @blur="show" placeholder="请输入电话"></el-input>
+								<el-input v-model="userInfo.tel" placeholder="请输入电话"></el-input>
 							</el-form-item>
 						</li>
 
@@ -60,16 +60,16 @@
 					<div class="book-time">
 						<p class="content">预约时间</p>
 						<div class="time-box">
-							<div class="book-time-item" v-for="(item,index) of currentCheckedArr" :key="index">
-								<span class="badge" @click="deleteCheck(item.id,index)">X</span>
-								<p class="time-content">{{item.content}}</p>
+							<div class="book-time-item" v-for="(item,index) of $store.state.checkedArr" :key="index">
+								<span class="badge" @click="deleteCheck(item)">X</span>
+								<p class="time-content">{{item}}</p>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 			</div>
-			<week @func="getCurrentChecked" ref="week"></week>
+			<week ref="week"></week>
 		</div>
 
 </template>
@@ -97,31 +97,12 @@
 			}
 		},
 		methods: {
-			show() {
-				console.log(this.userInfo)
-			},
 			changeLibHandle(libName) {
 				this.userInfo.libName = libName
 			},
-			getCurrentChecked(obj){
-				let flag =true;
-				this.currentCheckedArr.forEach((item,i)=>{
-					if(item.id == obj.id){
-						this.currentCheckedArr.splice(i,1);
-						flag = false;
-						return;
-					}
-				})
-				
-				if(flag){
-					this.currentCheckedArr.push(obj)
-				}
-				
-				
-			},
-			deleteCheck(id,index){
-				this.currentCheckedArr.splice(index,1);
-				this.$refs.week.ChangeCurrentCheck(id,true); 
+			deleteCheck(str){
+				this.$store.commit("delElOfCheckedArr",str)
+				console.log(str)
 			}
 		},
 		components: {
