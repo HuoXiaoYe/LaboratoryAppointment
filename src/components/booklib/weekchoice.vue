@@ -28,13 +28,13 @@
 
         <!-- 所有的时间选择组件 -->
         <div class="choice-container">
-          <week-ul :data="$store.state.data.Mon" WeekDay="Mon" :week="weekActive"></week-ul>
-          <week-ul :data="$store.state.data.Tues" WeekDay="Tues" :week="weekActive"></week-ul>
-          <week-ul :data="$store.state.data.Wed" WeekDay="Wed" :week="weekActive"></week-ul>
-          <week-ul :data="$store.state.data.Thurs" WeekDay="Thurs" :week="weekActive"></week-ul>
-          <week-ul :data="$store.state.data.Fri" WeekDay="Fri" :week="weekActive"></week-ul>
-          <week-ul :data="$store.state.data.Sat" WeekDay="Sat" :week="weekActive"></week-ul>
-          <week-ul :data="$store.state.data.Sun" WeekDay="Sun" :week="weekActive"></week-ul>
+          <week-ul :data="$store.state.data.monday" WeekDay="monday" :week="weekActive"></week-ul>
+          <week-ul :data="$store.state.data.thesday" WeekDay="thesday" :week="weekActive"></week-ul>
+          <week-ul :data="$store.state.data.wednesday" WeekDay="wednesday" :week="weekActive"></week-ul>
+          <week-ul :data="$store.state.data.thursday" WeekDay="thursday" :week="weekActive"></week-ul>
+          <week-ul :data="$store.state.data.friday" WeekDay="friday" :week="weekActive"></week-ul>
+          <week-ul :data="$store.state.data.saturday" WeekDay="saturday" :week="weekActive"></week-ul>
+          <week-ul :data="$store.state.data.sunday" WeekDay="sunday" :week="weekActive"></week-ul>
         </div>
       </div>
     </div>
@@ -63,7 +63,12 @@ export default {
   },
   methods: {
     ...mapMutations(["show"]),
+    
     changeActiveWeek(week) {
+      // 当切换选择的日期的时候，保存当前的状态
+      var data = JSON.stringify(this.$store.state.data)
+      // console.log(data)
+      localStorage.setItem("data",data)
       this.weekActive = week;
     }
   },

@@ -37,10 +37,6 @@ export default {
 			}
 		},
 		// 当点击按钮的时候，为当前元素添加样式
-		// obj = {
-		// 		interval,
-		// 		WeekDay
-		// 	}
 		handleClick(interval,WeekDay,state){
 			// 状态值为1或者5的才会执行函数
 			if(state==1|| state == 5){

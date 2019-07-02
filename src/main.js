@@ -15,7 +15,10 @@ import {
 	select,
 	option,
 	badge,
-	button
+	button,
+	Table,
+	TableColumn,
+	ButtonGroup,
 } from 'element-ui';
 
 Vue.use(Form);
@@ -25,7 +28,9 @@ Vue.use(select);
 Vue.use(option);
 Vue.use(badge);
 Vue.use(button);
-
+Vue.use(Table);
+Vue.use(TableColumn);
+Vue.use( ButtonGroup);
 //Vuex 模块
 Vue.use(Vuex)
 
@@ -41,31 +46,31 @@ var store = new Vuex.Store({
 
 	state: {
 		data: {
-			Mon: {
+			monday: {
 				timeDif1: { state: 0 },
 				timeDif2: { state: 1 }
 			},
-			Tues: {
+			thesday: {
 				timeDif1: { state: 0 },
 				timeDif2: { state: 1 }
 			},
-			Wed: {
+			wednesday    : {
 				timeDif1: { state: 0 },
 				timeDif2: { state: 1 }
 			},
-			Thurs: {
+			thursday : {
 				timeDif1: { state: 2 },
 				timeDif2: { state: 1 }
 			},
-			Fri: {
+			friday: {
 				timeDif1: { state: 3 },
 				timeDif2: { state: 0 }
 			},
-			Sat: {
+			saturday    : {
 				timeDif1: { state: 1 },
 				timeDif2: { state: 1 }
 			},
-			Sun: {
+			sunday: {
 				timeDif1: { state: 2 },
 				timeDif2: { state: 1 }
 			},
