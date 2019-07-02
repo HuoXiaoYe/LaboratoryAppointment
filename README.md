@@ -1,6 +1,6 @@
 # huoxiaoye
 
-> 预约实验室界面
+> 预约实验室的一个界面
 
 ## Build Setup
 
